@@ -11,9 +11,10 @@ stationary.matrix <- function(x, y, critical = FALSE){
     kpss <- ur.kpss(x) %>% summary()
     kpss_stat <- kpss@teststat
     kpss_cval <- kpss@cval[1,2]
-    series <- (deparse(substitute(...)))
+    series <- (deparse(substitute(x)))
     cval <- cbind("Critical Values", df_cval, pp_cval, kpss_cval)
     matrixx <- cbind(series, df_stat, pp_stat, kpss_stat)
+    colnames(matrixx) <- c("serie", "ADF", "PP", "KPSS")
     matrixx_cval <- rbind(matrixx, cval)
     ifelse(critical == FALSE, return(matrixx), return(matrixx_cval))
   }
